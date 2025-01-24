@@ -1,2 +1,2 @@
-echo sup > lol.txt
+echo sup > results.txt
 sleep 60

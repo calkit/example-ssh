@@ -14,7 +14,7 @@ wdir = env["wdir"]
 send_files = [
     "script.sh"
 ]
-get_files = ["lol.txt"]
+get_files = ["results.txt"]
 key = os.path.expanduser("~/.ssh/id_ed25519")
 
 cmd = "bash script.sh"

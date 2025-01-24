@@ -6,6 +6,11 @@ stages:
   #    nohub {cmd} &
   # Then we can periodically look for the existence of a file, signaling
   # that the job is done
+  # We can track job status in .calkit/jobs/{uuid}.yaml, which should
+  # indicate the command that was run in it, so if this command already has
+  # a job running, we don't resubmit
+  # On the host, we look for the existence of a file
+  # We need to somehow handle failures, so maybe we need to read a log file
   run-sim:
     cmd: calkit xenv -n cluster -- bash script.sh
     deps:
