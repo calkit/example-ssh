@@ -1,0 +1,6 @@
+environments:
+  cluster:
+    kind: ssh
+    host: 172.20.32.185
+    user: pete
+    wdir: /home/pete/calkit/example-ssh
