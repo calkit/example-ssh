@@ -4,3 +4,4 @@ environments:
     host: 172.20.32.185
     user: pete
     wdir: /home/pete/calkit/example-ssh
+    key: ~/.ssh/id_ed25519
