@@ -1,7 +1,13 @@
+dependencies:
+  - calkit>0.16.3
 environments:
   cluster:
     kind: ssh
-    host: 172.20.32.185
-    user: pete
-    wdir: /home/pete/calkit/example-ssh
+    host: "10.211.55.12"
+    user: parallels
+    wdir: /home/parallels/calkit/example-ssh
     key: ~/.ssh/id_ed25519
+    send_paths:
+      - script.sh
+    get_paths:
+      - "results*.txt"
