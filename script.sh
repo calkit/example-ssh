@@ -1,5 +1,5 @@
 echo "Hello from the cluster"
-echo sup > results.txt
-echo lol > results2.txt
+mkdir -p results
+echo sup > results/1.txt
+echo lol > results/2.txt
 sleep 1
-echo "Files on the cluster: $(ls)"

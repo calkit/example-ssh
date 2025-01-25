@@ -1,0 +1,15 @@
+schema: '2.0'
+stages:
+  run-sim:
+    cmd: calkit xenv -n cluster -- bash script.sh
+    deps:
+    - path: script.sh
+      hash: md5
+      md5: 317a9e3b6517e66026c9a9e24e42bc09
+      size: 105
+    outs:
+    - path: results
+      hash: md5
+      md5: 744952094a9dd0720499e19bae8018d6.dir
+      size: 8
+      nfiles: 2

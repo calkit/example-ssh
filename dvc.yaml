@@ -16,4 +16,5 @@ stages:
     deps:
       - script.sh
     outs:
-      - results.txt
+      - results:
+          cache: false
