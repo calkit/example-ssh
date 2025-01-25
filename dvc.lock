@@ -5,8 +5,8 @@ stages:
     deps:
     - path: script.sh
       hash: md5
-      md5: 317a9e3b6517e66026c9a9e24e42bc09
-      size: 105
+      md5: 58b4c9b94ea71048fdb88e753c124ed9
+      size: 106
     outs:
     - path: results
       hash: md5
