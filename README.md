@@ -12,7 +12,7 @@ send a file with the wrong line endings.
 
 ## Setup
 
-## Create an SSH key and add it to the agent
+### Create an SSH key and add it to the agent
 
 See [these docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
 
