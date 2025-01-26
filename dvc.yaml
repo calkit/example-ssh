@@ -1,16 +1,7 @@
 stages:
-  # Run a command in the SSH env but don't wait, in case we disconnect
-  # Or, maybe we wait, but the job continues to run, and if we run the
-  # pipeline again, we'll resume here and wait for the result
-  # The command can be
-  #    nohub {cmd} &
-  # Then we can periodically look for the existence of a file, signaling
-  # that the job is done
-  # We can track job status in .calkit/jobs/{uuid}.yaml, which should
-  # indicate the command that was run in it, so if this command already has
-  # a job running, we don't resubmit
-  # On the host, we look for the existence of a file
-  # We need to somehow handle failures, so maybe we need to read a log file
+  # Run a command in the SSH 'cluster' env
+  # Note that even if we disconnect while running, the results will be awaited
+  # and collected if the pipeline is run again
   run-sim:
     cmd: calkit xenv -n cluster -- bash script.sh
     deps:
