@@ -4,8 +4,8 @@
 [GitHub repo](https://github.com/calkit/example-ssh)
 
 A [Calkit](https://github.com/calkit/calkit) example project that
-executes a command on a remote server using SSH.
-It copies project files back and forth.
+executes a command on a remote server using SSH,
+automatically copying project files back and forth.
 
 Note this will probably fail if run from Windows for a Unix-like host
 because Git will probably
