@@ -7,8 +7,11 @@ A [Calkit](https://github.com/calkit/calkit) example project that
 executes a command on a remote server using SSH.
 It copies project files back and forth.
 
-Note this will probably fail if run from Windows because Git will probably
-send a file with the wrong line endings.
+Note this will probably fail if run from Windows for a Unix-like host
+because Git will probably
+check out files with the wrong line endings and send those over.
+This is [configurable](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings),
+however.
 
 ## Setup
 
@@ -37,3 +40,11 @@ use the `-i` flag to specify that key file.
 
 In `calkit.yaml`, there is an environment called `cluster`.
 Replace any relevant values there to match your remote machine.
+
+## Running the pipeline
+
+Execute:
+
+```sh
+calkit run
+```
