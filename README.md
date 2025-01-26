@@ -24,11 +24,14 @@ This should be okay if your machine is secure.
 
 ### Add your SSH key to the server
 
-Assuming you've created one and added it to the agent,
+Assuming you've created one and added it to the agent, call:
 
 ```sh
 ssh-copy-id $USER@$HOST
 ```
+
+If created a unique key for this remote host,
+use the `-i` flag to specify that key file.
 
 ### Fill in the correct environment details
 
