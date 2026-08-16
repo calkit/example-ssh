@@ -1,13 +1,49 @@
+owner: calkit
+name: example-ssh
+hub: calkit.io
+title: SSH Example
+description: An example of running a Calkit pipeline stage on a remote
+  machine via SSH.
+
 dependencies:
-  - calkit>0.16.3
+  - calkit>=0.43.0
+  - kind: env-var
+    name: CK_SSH_KEY
+  - kind: env-var
+    name: CK_SSH_HOST
+
 environments:
-  cluster:
-    kind: ssh
-    host: "10.211.55.12"
-    user: parallels
-    wdir: /home/parallels/calkit/example-ssh
-    key: ~/.ssh/id_ed25519
-    send_paths:
-      - script.sh
-    get_paths:
-      - results
+  my-remote-machine:
+    kind: system
+    host: ${CK_SSH_HOST}
+    # TODO: User in SSH key?
+    # user: parallels
+    # TODO: wdir should be ~/calkit/{name} by default
+    # wdir: /home/parallels/calkit/example-ssh # Should be this by default
+    # TODO: How to ensure SSH key has been added, or guide user to do it
+    # in env check
+    ssh_key: ${CK_SSH_KEY}
+    lock:
+      - cpu-count
+  py:
+    kind: uv
+    path: .calkit/envs/py/pyproject.toml
+    python: "3.12"
+
+pipeline:
+  stages:
+    raw-data:
+      kind: python-script
+      script_path: scripts/collect.py
+      environment: my-remote-machine:py
+      outputs:
+        - path: data/raw.csv
+          storage: git
+    plot:
+      kind: python-script
+      script_path: scripts/plot.py
+      environment: py
+      inputs:
+        - data/raw.csv
+      outputs:
+        - figures/plot.png
