@@ -1,8 +1,7 @@
 stages:
   raw-data:
-    cmd: calkit xenv -n remote --no-check --send scripts/collect.py --send
-      .calkit/envs/py/uv.lock --send .calkit/env-locks/remote/info.json
-      --get data/raw.csv -- calkit xenv -n py --no-check -- python scripts/collect.py
+    cmd: calkit xenv -n remote --no-check -- calkit xenv -n py --no-check
+      -- python scripts/collect.py
     deps:
       - scripts/collect.py
       - .calkit/envs/py/uv.lock
