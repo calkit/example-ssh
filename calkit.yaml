@@ -19,13 +19,17 @@ environments:
     kind: system
     host: ${CK_SSH_HOST}
     user: ${CK_SSH_USER}
+    ssh_key: ${CK_SSH_KEY}
     # Choosing a working directory is optional. It says where to put the
     # project when it has to be sent here; if you're already on this host,
     # stages run in the checkout you're in and this is ignored. The host is
     # recognized whether it's written as a name or an address, so running
     # from the machine itself skips SSH entirely.
-    wdir: ~/calkit/example-ssh # Otherwise ~/.calkit/workspaces/{hub}/{owner}/{name}
-    ssh_key: ${CK_SSH_KEY}
+    wdir: ~/calkit/example-ssh
+    # Here we choose the properties of the system we want to lock. This means
+    # that if one changes, it invalidates a cached stage, which can be useful
+    # for ensuring that a stage is re-run if the number of CPUs changes,
+    # for example.
     lock:
       - cpu-count
   py:
