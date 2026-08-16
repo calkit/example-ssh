@@ -15,13 +15,16 @@ dependencies:
     name: CK_SSH_USER
 
 environments:
-  remote-machine:
+  remote:
     kind: system
     host: ${CK_SSH_HOST}
     user: ${CK_SSH_USER}
-    # Choosing a working directory is optional, but recommended
-    # TODO: Should this have any effect if we're already on the remote host?
-    wdir: ~/calkit/example-ssh # This would be selected by default
+    # Choosing a working directory is optional. It says where to put the
+    # project when it has to be sent here; if you're already on this host,
+    # stages run in the checkout you're in and this is ignored. The host is
+    # recognized whether it's written as a name or an address, so running
+    # from the machine itself skips SSH entirely.
+    wdir: ~/calkit/example-ssh # Otherwise ~/.calkit/workspaces/{hub}/{owner}/{name}
     ssh_key: ${CK_SSH_KEY}
     lock:
       - cpu-count
@@ -35,7 +38,7 @@ pipeline:
     raw-data:
       kind: python-script
       script_path: scripts/collect.py
-      environment: remote-machine:py
+      environment: remote:py
       outputs:
         - path: data/raw.csv
           storage: git
