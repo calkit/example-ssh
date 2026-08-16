@@ -8,18 +8,12 @@ description: An example of running a Calkit pipeline stage on a remote
 dependencies:
   - calkit>=0.42.2
   - kind: env-var
-    name: CK_SSH_KEY
-  - kind: env-var
     name: CK_SSH_HOST
-  - kind: env-var
-    name: CK_SSH_USER
 
 environments:
   remote:
     kind: system
     host: ${CK_SSH_HOST}
-    user: ${CK_SSH_USER}
-    ssh_key: ${CK_SSH_KEY}
     # Choosing a working directory is optional. It says where to put the
     # project when it has to be sent here; if you're already on this host,
     # stages run in the checkout you're in and this is ignored. The host is
