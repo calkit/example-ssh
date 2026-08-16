@@ -11,7 +11,7 @@ host; `plot` then reads that data and makes a figure here.
 Calkit moves the project to a workspace on that host, runs the stage there,
 and brings the outputs back.
 
-## Setup
+## Getting set up and running
 
 There isn't a separate setup step.
 Run the pipeline and Calkit asks for whatever is missing:
