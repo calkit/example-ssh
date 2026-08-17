@@ -13,3 +13,44 @@ stages:
       md5: 744952094a9dd0720499e19bae8018d6.dir
       size: 8
       nfiles: 2
+  raw-data:
+    cmd: calkit xenv -n remote --no-check -- calkit xenv -n py --no-check -- python
+      scripts/collect.py
+    deps:
+    - path: .calkit/env-locks/remote/info.json
+      hash: md5
+      md5: 17f4ca0df24b3de27e52f7e3349a6dde
+      size: 21
+    - path: .calkit/envs/py/uv.lock
+      hash: md5
+      md5: 42a6bb483bf62e9c50141357e3f934d6
+      size: 111884
+    - path: scripts/collect.py
+      hash: md5
+      md5: 5e90799577a974131ba41936a4572a5e
+      size: 952
+    outs:
+    - path: data/raw.csv
+      hash: md5
+      md5: 0841adb5f537addcefff8632579fbb98
+      size: 7804
+  plot:
+    cmd: calkit xenv -n py --no-check -- python scripts/plot.py
+    deps:
+    - path: .calkit/envs/py/uv.lock
+      hash: md5
+      md5: 42a6bb483bf62e9c50141357e3f934d6
+      size: 111884
+    - path: data/raw.csv
+      hash: md5
+      md5: 0841adb5f537addcefff8632579fbb98
+      size: 7804
+    - path: scripts/plot.py
+      hash: md5
+      md5: 11c2636e9009187d57ca797d6d64bde5
+      size: 1016
+    outs:
+    - path: figures/plot.png
+      hash: md5
+      md5: 0cd9cc7514f58a76a516866f163db662
+      size: 45260

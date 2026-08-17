@@ -3,48 +3,35 @@
 [Project page](https://calkit.io/calkit/example-ssh) |
 [GitHub repo](https://github.com/calkit/example-ssh)
 
-A [Calkit](https://github.com/calkit/calkit) example project that
-executes a command on a remote server using SSH,
-automatically copying project files back and forth.
+A [Calkit](https://github.com/calkit/calkit) example project that runs one
+pipeline stage on another machine over SSH, and the rest locally.
 
-Note this will probably fail if run from Windows for a Unix-like host
-because Git will probably
-check out files with the wrong line endings and send those over.
-This is [configurable](https://docs.github.com/en/get-started/getting-started-with-git/configuring-git-to-handle-line-endings),
-however.
+The `raw-data` stage collects data in the `py` environment on a remote
+host; `plot` then reads that data and makes a figure here.
+Calkit moves the project to a workspace on that host, runs the stage there,
+and brings the outputs back.
 
-## Setup
+## Getting set up and running
 
-### Create an SSH key and add it to the agent
-
-See [these docs](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
-
-This is only necessary if you haven't done this before.
-Optionally, you can create a new key just for this host.
-Don't use a passphrase if you want your commands to run without entering
-it each time.
-This should be okay if your machine is secure.
-
-### Add your SSH key to the server
-
-Assuming you've created one and added it to the agent, call:
-
-```sh
-ssh-copy-id $USER@$HOST
-```
-
-If created a unique key for this remote host,
-use the `-i` flag to specify that key file.
-
-### Fill in the correct environment details
-
-In `calkit.yaml`, there is an environment called `cluster`.
-Replace any relevant values there to match your remote machine.
-
-## Running the pipeline
-
-Execute:
+There isn't a separate setup step.
+Run the pipeline and Calkit asks for whatever is missing:
 
 ```sh
 calkit run
 ```
+
+In a terminal, that prompts for the host and user (saving them to `.env`),
+offers to create an SSH key if you don't have one, offers to authorize this
+machine on the host with `ssh-copy-id`, and offers to install Calkit there
+if it's missing.
+Nothing happens without you agreeing to it.
+
+To check the setup without running anything, use:
+
+```sh
+calkit check env -n remote
+```
+
+Outside a terminal---in CI, say---nothing is prompted for, because there's
+nobody to answer.
+It fails with the exact commands to run instead.

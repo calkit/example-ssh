@@ -1,11 +1,24 @@
 stages:
-  # Run a command in the SSH 'cluster' env
-  # Note that even if we disconnect while running, the results will be awaited
-  # and collected if the pipeline is run again
-  run-sim:
-    cmd: calkit xenv -n cluster -- bash script.sh
+  raw-data:
+    cmd: calkit xenv -n remote --no-check -- calkit xenv -n py --no-check
+      -- python scripts/collect.py
     deps:
-      - script.sh
+      - scripts/collect.py
+      - .calkit/envs/py/uv.lock
+      - .calkit/env-locks/remote/info.json
     outs:
-      - results:
+      - data/raw.csv:
           cache: false
+          persist: false
+    desc: Automatically generated from the 'raw-data' stage in calkit.yaml.
+      Changes made here will be overwritten.
+  plot:
+    cmd: calkit xenv -n py --no-check -- python scripts/plot.py
+    deps:
+      - scripts/plot.py
+      - data/raw.csv
+      - .calkit/envs/py/uv.lock
+    outs:
+      - figures/plot.png
+    desc: Automatically generated from the 'plot' stage in calkit.yaml.
+      Changes made here will be overwritten.

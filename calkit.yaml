@@ -1,13 +1,44 @@
-dependencies:
-  - calkit>0.16.3
+owner: calkit
+name: example-ssh
+hub: calkit.io
+title: SSH Example
+description: An example of running a Calkit pipeline stage on a remote
+  machine via SSH.
+
+requirements:
+  - calkit>=0.44.0
+  - kind: env-var
+    name: CK_SSH_HOST
+
 environments:
-  cluster:
-    kind: ssh
-    host: "10.211.55.12"
-    user: parallels
-    wdir: /home/parallels/calkit/example-ssh
-    key: ~/.ssh/id_ed25519
-    send_paths:
-      - script.sh
-    get_paths:
-      - results
+  remote:
+    kind: system
+    host: ${CK_SSH_HOST}
+    # Choosing a working directory is optional. It says where to put the
+    # project when it has to be sent here; if you're already on this host,
+    # stages run in the checkout you're in and this is ignored. The host is
+    # recognized whether it's written as a name or an address, so running
+    # from the machine itself skips SSH entirely.
+    wdir: ~/calkit/example-ssh
+  py:
+    kind: uv
+    path: .calkit/envs/py/pyproject.toml
+    python: "3.12"
+
+pipeline:
+  stages:
+    raw-data:
+      kind: python-script
+      script_path: scripts/collect.py
+      environment: remote:py
+      outputs:
+        - path: data/raw.csv
+          storage: git
+    plot:
+      kind: python-script
+      script_path: scripts/plot.py
+      environment: py
+      inputs:
+        - data/raw.csv
+      outputs:
+        - figures/plot.png
